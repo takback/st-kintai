@@ -1,33 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
-<html><head>
-    <!--CSSを埋め込む-->
-    <link rel="stylesheet"
-    href="{{url_for('static',filename='style.css')}}">
-    <style>
-        /* スマートフォン対応 */
-        @media screen and (max-width: 768px) {
-          body {
-            font-size: 18px;
-          }
+<style>
+    /* スマートフォン対応 */
+    @media screen and (max-width: 768px) {
+        body {
+        font-size: 18px;
         }
-        /*ボタンスタイル*/
-        .btn {
-            background-color: rgb(190, 216, 239);
-            color: black;
-            font-size: 14px;
-            padding: 15px 20px;
-        }
-        .btn1 {
-            background-color: white;
-            color: black;
-            font-size: 12px;
-            padding: 10px 33px;
-        }
-      </style>
-
+    }
+    /*ボタンスタイル*/
+    .btn {
+        background-color: rgb(190, 216, 239);
+        color: black;
+        font-size: 14px;
+        padding: 15px 36px;
+    }
+    .btn1 {
+        background-color: white;
+        color: black;
+        font-size: 12px;
+        padding: 10px 33px;
+    }
+</style>
 
 <img src="/image/R3.jpg" alt="写真">
+
 <h1>ログイン画面</h1>
 <!--エラーメッセージ-->
 <p style="color:red">{{error_message}} </p>
@@ -40,7 +36,7 @@
         </tr>
         <tr>
             <td>
-                <input type="text" minlength="7" maxlength="7", name="roster" vallue="{{roster}}">
+                <input type="text" required="required" minlength="7" maxlength="7", name="roster" vallue="{{roster}}">
             </td>
         </tr>
     </table>
@@ -58,7 +54,7 @@
     <p></p>
     <p></p>
     <p></p>
-    <input type="submit" class="btn" size="20" value="ログイン" >
+    <input type="submit"  value="ログイン" >
     <!--<button class="btn" onclick="location.href='submit'">ログイン </button>-->
 </form>
 <p></p>
@@ -67,6 +63,5 @@
 <br>
 <!--<button class="btn1" onclick="location.href='/signup'">新規ユーザー登録 </button>-->
 <p></p>
-<a href="/signup" role="botton">新規ユーザー登録</a>
-</head></html>
+<a href="/signup"  class="btn1">新規ユーザー登録</a>
 {% endblock %}
