@@ -368,7 +368,7 @@ def kintaimain(id):
         store_list = db.execute("select * from storeDat where id=?",(id,)).fetchone()
         kintai_list = db.execute("SELECT kintai.datid,kintai.roster,kintai.date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
         db.commit()
-        with open('//landisk01/広場/StKintaiApp_Fold/sample.csv', 'w', newline='', encoding="utf-8") as f:
+        with open('./static/data/sample.csv', 'w', newline='', encoding="utf-8") as f:
             #'//landisk01/広場/StKintaiApp_Fold/sample.csv'  テスト広場
             #./static/data/sample.csv テストローカルフォルダ
 
@@ -388,8 +388,8 @@ def upload():
     # formでsubmitボタンが押されるとPOSTリクエストとなるのでこっち
     elif request.method == 'POST':
          file = request.files['photo_data']
-         #file.save(os.path.join('./static/photo_data', file.filename))
-         file.save(os.path.join('//landisk01/広場/StKintaiApp_Fold', file.filename))  #テストで広場に保存
+         file.save(os.path.join('./static/photo_data', file.filename)) #テスト　Static/dataに保存
+         #file.save(os.path.join('//landisk01/広場/StKintaiApp_Fold', file.filename))  #テストで広場に保存
          return redirect(url_for('uploaded_file', filename=file.filename))
     
     return render_template ('upload.html')
