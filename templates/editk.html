@@ -9,7 +9,7 @@
 <img src="/image/R3.jpg" alt="写真">
 <h1>編集</h1>
 <form method="POST">
-    <table border="2">
+    <table width="700" border="2">
         <tr>
             <th>ID</th>
             <th>実施日</th>
@@ -25,6 +25,8 @@
             <td>{{post.store}}</td>
         </tr>
     </table>  
+    <p></p>
+    <p></p>
     <table border="2"> 
         <tr>
             <th>No</th>
@@ -44,8 +46,8 @@
             <td>
                 {{kintai.Unum}}
             </td>
-            <td>
-                <input type="integer"minlength="7" maxlength="7", name="roster" value="{{kintai.roster}}">
+            <td width="70">
+                <input type="integer"  size="5" minlength="7" maxlength="7", name="roster" value="{{kintai.roster}}">
             </td>
             <td>{{kintai.name}}</td>
             <td>
@@ -63,11 +65,11 @@
             <td>
                 <input type="time", name="kyue" value="{{kintai.kyue}}">
             </td>
-            <td>
-                <input type="integer", name="kotue" value="{{kintai.kotue}}">
+            <td width="40">
+                <input type="integer" size="5", name="kotue" value="{{kintai.kotue}}">
             </td>
-            <td>
-                <input type="integer", name="kotuk" value="{{kintai.kotuk}}">
+            <td width="40">
+                <input type="integer" size="5", name="kotuk" value="{{kintai.kotuk}}">
             </td>
             <td>
                 <input type="text", name="biko" value="{{kintai.biko}}">
