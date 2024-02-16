@@ -5,6 +5,7 @@ from collections.abc import Mapping, Sequence
 from typing import Any
 from flask_wtf import FlaskForm
 from wtforms import Form #TextField,StringField,TextAreaField,ValidationError
+import ftplib 
 #from wtforms.validators import Required,Length
 #from pydrive2.auth import GoogleAuth    
 #from pydrive2.drive import GoogleDrive  
@@ -415,7 +416,12 @@ def kintaimain(id):
         kintai_list = db.execute("SELECT kintai.datid,kintai.roster,kintai.date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
         db.commit()
 
-        with open('sample.txt', 'w', newline='', encoding="utf-8") as f:
+        #FTP接続
+        ftp = ftplib.FTP()
+        ftp.connect('s322.xrea.com', port=21, timeout=60)
+        msg = ftp.login('stappajis', 'SVSwuX6l7tBm') 
+
+        with open('sample.csv', 'w', newline='', encoding="utf-8") as f:
             #'//landisk01/広場/StKintaiApp_Fold/sample.csv'  テスト広場
             #./static/data/sample.csv テストローカルフォルダ
 
@@ -424,12 +430,27 @@ def kintaimain(id):
             writer.writerow(store_list)
             writer.writerows(kintai_list)
 
+        with open('sample.csv', "rb") as f:
+            ftp.storlines('STOR /sample.csv', f)
+
+            
+
             #GoogleDrive 接続
-            g = GoogleDriveFacade()
-            g.upload(local_file_path='sample.txt',save_folder_name="stkintai_test",is_convert=True,)
+            #g = GoogleDriveFacade()
+            #g.upload(local_file_path='sample.txt',save_folder_name="stkintai_test",is_convert=True,)
+            #ENCODING = 'utf8'
+            
+       
 
         return render_template('upload.html')
 
+           # with FTP_TLS('s322.xrea.com', 'stappajis', 'SVSwuX6l7tBm') as ftp:
+                #ftp.cwd('/web/')
+                #ftp.encoding = ENCODING
+                #with open(r'sample.csv','rb') as text_file:
+                    #ftp.storlines('STOR sample.csv', text_file)
+
+                
 #カメラ起動  
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
