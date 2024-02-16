@@ -6,6 +6,8 @@ from typing import Any
 from flask_wtf import FlaskForm
 from wtforms import Form #TextField,StringField,TextAreaField,ValidationError
 #from wtforms.validators import Required,Length
+from pydrive2.auth import GoogleAuth    #GoogleDrive接続　2024.02.16
+from pydrive2.drive import GoogleDrive  #GoogleDrive接続　2024.02.16
 
 import sqlite3
 import pandas as pd
@@ -27,6 +29,63 @@ app.json.ensure_ascii = False
 class User(UserMixin):
     def __init__(self,roster):
         self.id = roster
+
+#GoogleDrive接続用クラス
+class GoogleDriveFacade:
+    
+    def __init__(self, setting_path: str='settings.yaml'):
+        gauth = GoogleAuth(setting_path)
+        gauth.LocalWebserverAuth()
+
+        self.drive = GoogleDrive(gauth)
+
+    def create_folder(self, folder_name):
+        ret = self.check_files(folder_name)
+        if ret:
+            folder = ret
+            print(f"{folder['title']}: exists")
+        else:   
+            folder = self.drive.CreateFile(
+                {
+                    'title': folder_name,
+                    'mimeType': 'application/vnd.google-apps.folder'
+                }
+            )
+            folder.Upload()
+
+        return folder
+
+    def check_files(self, folder_name,):
+        query = f'title = "{os.path.basename(folder_name)}"'
+
+        list = self.drive.ListFile({'q': query}).GetList()
+        if len(list)> 0:
+            return list[0]
+        return False
+
+    def upload(self, 
+               local_file_path: str,
+               save_folder_name: str = 'sample',
+               is_convert : bool=True,
+        ):
+        
+        if save_folder_name:
+            folder = self.create_folder(save_folder_name)
+        
+        file = self.drive.CreateFile(
+            {
+                'title':os.path.basename(local_file_path),
+                'parents': [
+                    {'id': folder["id"]}
+                ]
+            }
+        )
+        file.SetContentFile(local_file_path)
+        file.Upload({'convert': is_convert})
+        
+        drive_url = f"https://drive.google.com/uc?id={str( file['id'] )}" 
+        return drive_url
+
 ##ログイン
 @login_manager.user_loader
 def load_user(roster):
@@ -351,24 +410,12 @@ def kintaireturn(id):
 def kintaimain(id):
     conn = sqlite3.connect(DATABASE)
     if request.method == 'POST':
-        #pd.DataFrame()   pandasを使用してCSV書き込み　strat   ※pd.read_sql_query で上手くいかない
-        #df = pd.DataFrame()
-        #conn = sqlite3.connect('StApp.db')
-        #cursor = conn.cursor()
-        #df = pd.read_sql_query("SELECT kintai.date,storeNo,kigyo,store,total,user.roster,storein,storeout,kyus,kyue,kotue,kotuk,biko FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,),conn) 
-        #df = pd.read_sql_query("SELECT kintai.date,user.roster,datid,storeNo,kigyo FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?" (id),conn) 
-        #df = pd.read_sql_query("SELECT * FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,),conn)
-        #conn.close
-        #df.to_csv('./static/data/sample.csv')   pandasを使用してCSV書き込み　end
-
         db = get_db()
-        #kintai_list = db.execute("SELECT * FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
-        #kintai_list = db.execute("SELECT  kintai.date,storeNo,kigyo,store,total,user.roster,storein,storeout,kyus,kyue,kotue,kotuk,biko FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
-        #store_list = db.execute("SELECT date,storecd,kigyo,store,oric,tape,cae,total FROM storeDat where=?",(id,))
         store_list = db.execute("select * from storeDat where id=?",(id,)).fetchone()
         kintai_list = db.execute("SELECT kintai.datid,kintai.roster,kintai.date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
         db.commit()
-        with open('./static/data/sample.csv', 'w', newline='', encoding="utf-8") as f:
+
+        with open('sample.txt', 'w', newline='', encoding="utf-8") as f:
             #'//landisk01/広場/StKintaiApp_Fold/sample.csv'  テスト広場
             #./static/data/sample.csv テストローカルフォルダ
 
@@ -376,6 +423,10 @@ def kintaimain(id):
             writer.writerow(['date','storeNo','kigyo','store','total','roster','storein','storeout','kyus','kyue','kotue','kotuk','biko'])
             writer.writerow(store_list)
             writer.writerows(kintai_list)
+
+            #GoogleDrive 接続
+            g = GoogleDriveFacade()
+            g.upload(local_file_path='sample.txt',save_folder_name="stkintai_test",is_convert=True,)
 
         return render_template('upload.html')
 
@@ -388,7 +439,7 @@ def upload():
     # formでsubmitボタンが押されるとPOSTリクエストとなるのでこっち
     elif request.method == 'POST':
          file = request.files['photo_data']
-         file.save(os.path.join('./static/photo_data', file.filename)) #テスト　Static/dataに保存
+         file.save(os.path.join('https://onedrive.live.com/?authkey=%21AJqzebKf6vNb2bM&id=33CCA28CCC7D448D%21189814&cid=33CCA28CCC7D448D', file.filename)) #テスト　Static/dataに保存
          #file.save(os.path.join('//landisk01/広場/StKintaiApp_Fold', file.filename))  #テストで広場に保存
          return redirect(url_for('uploaded_file', filename=file.filename))
     
