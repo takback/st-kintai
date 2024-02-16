@@ -433,15 +433,11 @@ def kintaimain(id):
         with open('sample.csv', "rb") as f:
             ftp.storlines('STOR /sample.csv', f)
 
-            
-
             #GoogleDrive 接続
             #g = GoogleDriveFacade()
             #g.upload(local_file_path='sample.txt',save_folder_name="stkintai_test",is_convert=True,)
             #ENCODING = 'utf8'
-            
-       
-
+        
         return render_template('upload.html')
 
            # with FTP_TLS('s322.xrea.com', 'stappajis', 'SVSwuX6l7tBm') as ftp:
@@ -459,8 +455,16 @@ def upload():
         return render_template('upload.html')
     # formでsubmitボタンが押されるとPOSTリクエストとなるのでこっち
     elif request.method == 'POST':
+         #FTP接続
+         ftp = ftplib.FTP()
+         ftp.connect('s322.xrea.com', port=21, timeout=60)
+         msg = ftp.login('stappajis', 'SVSwuX6l7tBm') 
+         #写真保存
          file = request.files['photo_data']
-         file.save(os.path.join('https://onedrive.live.com/?authkey=%21AJqzebKf6vNb2bM&id=33CCA28CCC7D448D%21189814&cid=33CCA28CCC7D448D', file.filename)) #テスト　Static/dataに保存
+         file.save(os.path.join('', file.filename)) #テスト　Static/dataに保存
+         fp = open(file.filename, "rb")  #アップロードするファイル名
+         ftp.storbinary("STOR /test.jpg",fp) #ホスト側のディレクトリ　
+
          #file.save(os.path.join('//landisk01/広場/StKintaiApp_Fold', file.filename))  #テストで広場に保存
          return redirect(url_for('uploaded_file', filename=file.filename))
     
