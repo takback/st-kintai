@@ -6,8 +6,8 @@ from typing import Any
 from flask_wtf import FlaskForm
 from wtforms import Form #TextField,StringField,TextAreaField,ValidationError
 #from wtforms.validators import Required,Length
-#from pydrive2.auth #import GoogleAuth    #GoogleDrive接続　2024.02.16
-#from pydrive2.drive #import GoogleDrive  #GoogleDrive接続　2024.02.16
+from pydrive2.auth import GoogleAuth    
+from pydrive2.drive import GoogleDrive  
 
 import sqlite3
 import pandas as pd
