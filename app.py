@@ -239,10 +239,67 @@ def kagoin(id):
     
     return render_template('error.html')
 
-#勤怠入力
+#社員番号入力
 @app.route("/<id>/<date>/kintai", methods=['POST','GET'])
 #@login_required
 def kintai(id,date):
+    if request.method == 'POST':
+ #表1から取得
+        roster = request.form.get('roster1')
+        if roster =="":
+            pass
+        db = get_db()
+        #idと紐付けて実績データ(storeDat)からデータ取得
+        post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
+        #社員ﾏｽﾀから氏名データ取得
+        person_list = db.execute("SELECT roster,name FROM user WHERE roster=?",(roster,)) 
+        db.commit()
+ #表2から取得
+        roster = request.form.get('roster2')
+        if roster =="":
+            pass
+        db = get_db()
+        #idと紐付けて実績データ(storeDat)からデータ取得
+        post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
+        #社員ﾏｽﾀから氏名データ取得
+        person_list2 = db.execute("SELECT roster,name FROM user WHERE roster=?",(roster,)) 
+ #表3から取得
+        roster = request.form.get('roster3')
+        if roster =="":
+            pass
+        db = get_db()
+        #idと紐付けて実績データ(storeDat)からデータ取得
+        post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
+        #社員ﾏｽﾀから氏名データ取得
+        person_list3 = db.execute("SELECT roster,name FROM user WHERE roster=?",(roster,)) 
+        db.commit()
+ #表4から取得
+        roster = request.form.get('roster4')
+        if roster =="":
+            pass
+        db = get_db()
+        #idと紐付けて実績データ(storeDat)からデータ取得
+        post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
+        #社員ﾏｽﾀから氏名データ取得
+        person_list4 = db.execute("SELECT roster,name FROM user WHERE roster=?",(roster,)) 
+        db.commit()
+ #表5から取得
+        roster = request.form.get('roster5')
+        if roster =="":
+            pass
+        db = get_db()
+        #idと紐付けて実績データ(storeDat)からデータ取得
+        post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
+        #社員ﾏｽﾀから氏名データ取得
+        person_list5 = db.execute("SELECT roster,name FROM user WHERE roster=?",(roster,)) 
+        db.commit()
+
+        return render_template('kintaiinput.html', id=id,post=post,person_list=person_list,person_list2=person_list2,person_list3=person_list3,person_list4=person_list4,person_list5=person_list5)
+
+#勤怠入力2
+@app.route("/<id>/<date>/kintaiinput", methods=['POST','GET'])
+#@login_required
+def kintaiinput(id,date):
     if request.method == 'POST':
  #表1から取得
         roster = request.form.get('roster1')
@@ -287,7 +344,7 @@ def kintai(id,date):
             if kotuk == "":
                 kotuk = 0
             else:
-                kotuk = int(kotuk) * 80
+                intkotuk = int(kotuk) * 80
             biko = request.form.get('biko2')
             db = get_db()
             #idと紐付けて実績データ(storeDat)からデータ取得
@@ -379,7 +436,6 @@ def kintai(id,date):
             kintai_list = db.execute("SELECT * FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
             db.commit()
 
-
         if kintai_list is None:
             return render_template('kintaierror.html', id=id)
         else:
@@ -432,21 +488,9 @@ def kintaimain(id):
 
         with open('sample.csv', "rb") as f:
             ftp.storlines('STOR /sample.csv', f)
-
-            #GoogleDrive 接続
-            #g = GoogleDriveFacade()
-            #g.upload(local_file_path='sample.txt',save_folder_name="stkintai_test",is_convert=True,)
-            #ENCODING = 'utf8'
         
         return render_template('upload.html')
-
-           # with FTP_TLS('s322.xrea.com', 'stappajis', 'SVSwuX6l7tBm') as ftp:
-                #ftp.cwd('/web/')
-                #ftp.encoding = ENCODING
-                #with open(r'sample.csv','rb') as text_file:
-                    #ftp.storlines('STOR sample.csv', text_file)
-
-                
+          
 #カメラ起動  
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
