@@ -7,33 +7,32 @@
     <style>
         /* スマートフォン対応 */
         @media screen and (max-width: 768px) {
-          body {
+            body {
             font-size: 18px;
-          }
+            }
         }
         /*ボタンスタイル*/
         .btn {
-            background-color: rgb(190, 216, 239);
-            color: black;
+            background-color: rgb(151, 201, 248);
+            color: rgb(78, 4, 4);
             font-size: 14px;
-            padding: 15px 36px;
+            padding: 8px 12px;
         }
         .btn1 {
             background-color: white;
             color: black;
             font-size: 12px;
-            padding: 10px 30px;
+            padding: 10px 33px;
         }
     </style>
     <!--ブラウザバック禁止　JavaScript-->
     <script>
-        window.onload = function() {
-        history.pushState(null, null, null);
-        window.addEventListener("popstate", function (e) {
-        history.pushState(null, null, null);
-        return;});};
+    window.addEventListener("popstate", function (e) {
+    history.pushState(null, null, null);
+    return;
+    });
     </script>
-  
+    
 <img src="/image/R3.jpg" alt="写真">
 <h1>勤怠入力画面</h1>
 <!--<form method="POST">-->
@@ -57,32 +56,33 @@
                 <td>{{post.store}}</td>
             </tr>
         </table>  
+        
         <h3>メンバーの社員情報入力してください</h3>
         <table border="2">
             <tr>
                 <th>社員番号</th>
             </tr>
                 <tr>
-                    <td width="40"><input type="text" size="10" minlength="7" maxlength="7", name="roster1"  value="{{roster1}}"></td>
+                    <td width="40"><input type="text" size="20" minlength="7" maxlength="7", name="roster1"  value="{{roster1}}"></td>
                 </tr>
                 <tr>
-                    <td width="40"><input type="text" size="10" minlength="7" maxlength="7", name="roster2"  value="{{roster2}}"></td>
+                    <td width="40"><input type="text" size="20" minlength="7" maxlength="7", name="roster2"  value="{{roster2}}"></td>
                 </tr> 
                 <tr>
-                    <td width="40"><input type="text" size="10" minlength="7" maxlength="7", name="roster3"  value="{{roster3}}"></td>
+                    <td width="40"><input type="text" size="20" minlength="7" maxlength="7", name="roster3"  value="{{roster3}}"></td>
                 </tr>  
                 <tr>
-                    <td width="40"><input type="text" size="10" minlength="7" maxlength="7", name="roster4"  value="{{roster4}}"></td>
+                    <td width="40"><input type="text" size="20" minlength="7" maxlength="7", name="roster4"  value="{{roster4}}"></td>
                 </tr>  
                 <tr>
-                    <td width="40"><input type="text" size="10" minlength="7" maxlength="7", name="roster5"  value="{{roster5}}"></td>>
+                    <td width="40"><input type="text" size="20" minlength="7" maxlength="7", name="roster5"  value="{{roster5}}"></td>
                 </tr>                      
         </table>  
         <p></p>
         <p></p>
         <p></p> 
         <h3>メンバーの確認画面へ</h3>
-        <input type="submit" value="確認" >
+        <input type="submit" class="btn", value="確認" >
         <!--<button class="btn" onclick="location.href='submit'">登録・次へ </button>-->
         
         <p></p>

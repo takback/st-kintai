@@ -1,4 +1,5 @@
 from flask import Flask,jsonify,render_template,g,redirect,request,url_for,Response
+from flask import Flask, flash
 from flask_mobility import Mobility
 from io import StringIO
 from collections.abc import Mapping, Sequence
@@ -160,7 +161,10 @@ def store():
             "select id,kigyo,store from storeMst where storeNo=?",(storeNo,)
         ).fetchone()
         db.commit()
-        return render_template ('storepost.html',date=date,storeNo=storeNo,post=post)
+        if post is None:
+             flash('入力された店舗コードが誤っています。')
+        else:
+            return render_template ('storepost.html',date=date,storeNo=storeNo,post=post)
   
     ##確認後登録 追加
     return render_template('store.html')
@@ -314,7 +318,7 @@ def kintaiinput(id,date):
         if kotue == "":
             kotue = 0
         kotuk = request.form.get('kotuk1')
-        if kotuk == "":
+        if kotuk is None:
             kotuk = 0
         else:
             kotuk = int(kotuk) * 80
@@ -341,7 +345,7 @@ def kintaiinput(id,date):
             if kotue =="":
                 kotue = 0
             kotuk = request.form.get('kotuk2')
-            if kotuk == "":
+            if kotuk is None:
                 kotuk = 0
             else:
                 intkotuk = int(kotuk) * 80
@@ -368,7 +372,7 @@ def kintaiinput(id,date):
             if kotue == "":
                 kotue = 0
             kotuk = request.form.get('kotuk3')
-            if kotuk == "":
+            if kotuk is None:
                 kotuk = 0
             else:
                 kotuk = int(kotuk) * 80
@@ -395,7 +399,7 @@ def kintaiinput(id,date):
             if kotue =="":
                 kotue = 0
             kotuk = request.form.get('kotuk4')
-            if kotuk == "":
+            if kotuk is None:
                 kotuk = 0
             else:
                 kotuk = int(kotuk) * 80
@@ -422,7 +426,7 @@ def kintaiinput(id,date):
             if kotue =="":
                 kotue = 0
             kotuk = request.form.get('kotuk5')
-            if kotuk == "":
+            if kotuk is None:
                 kotuk = 0
             else:
                 kotuk = int(kotuk)*80

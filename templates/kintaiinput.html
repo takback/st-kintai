@@ -5,34 +5,34 @@
     <link rel="stylesheet"
     href="{{url_for('static',filename='style.css')}}">
     <style>
-        /* スマートフォン対応 */
+        /* スマートフォン対応 
         @media screen and (max-width: 768px) {
-          body {
+            body {
             font-size: 18px;
-          }
+            }
         }
         /*ボタンスタイル*/
         .btn {
-            background-color: rgb(190, 216, 239);
-            color: black;
+            background-color: rgb(151, 201, 248);
+            color: rgb(78, 4, 4);
             font-size: 14px;
-            padding: 15px 36px;
+            padding: 8px 12px;
         }
         .btn1 {
             background-color: white;
             color: black;
             font-size: 12px;
-            padding: 10px 30px;
+            padding: 10px 33px;
         }
     </style>
+
     <!--ブラウザバック禁止　JavaScript-->
     <script>
-        window.onload = function() {
-        history.pushState(null, null, null);
         window.addEventListener("popstate", function (e) {
         history.pushState(null, null, null);
-        return;});};
-    </script>
+        return;
+        });
+        </script>
   
 <img src="/image/R3.jpg" alt="写真">
 <h1>勤怠入力画面</h1>
@@ -68,9 +68,9 @@
             {% for person in person_list %}
              <tr>       
                 <td><input type="text", name="roster1" value="{{person.roster}}" ></td>
-                <!--<td width="10">{{person.roster}}</td>-->
-                <td><input type="text", name="name1" value="{{person.name}}" ></td>
-                
+                <!--<td width="10">{{person.roster}}</td>
+                <td><input type="text", name="name1" value="{{person.name}}" ></td>-->
+                <td width="150">{{person.name}}</td>                
                 <td width="20"><input type="radio", name="leader1" value="1"></td>
                 <!--<td>{{total}}</td>-->
                 <td><input type="time", name="storein1" value="{{storein1}}"></td>
@@ -147,13 +147,16 @@
         <p></p>
         <p></p>
         <p></p> 
-        <input type="submit" value="登録・次へ" >
+        <input type="submit" class="btn", value="登録・次へ" >
         <!--<button class="btn" onclick="location.href='submit'">登録・次へ </button>-->
         
         <p></p>
         <p></p>
         <p></p>  
     </form>
+    <p></p>
+    <P1>前の画面に戻る</P1>&nbsp;<a href="/{{id}}/kagoin" role="botton">戻る</a><br>
+    <p></p>
     <!--<P1>ログアウトする</P1><br>
     <button class="btn1" onclick="location.href='/logout'">ログアウト</button>-->
     <P1>ログアウトする</P1>

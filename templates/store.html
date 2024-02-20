@@ -1,31 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
-<html><head><body>
-    <link rel="stylesheet"
-    href="{{url_for('static',filename='style.css')}}">
-    <style>
-        /* スマートフォン対応 */
-        @media screen and (max-width: 768px) {
-          body {
-            font-size: 18px;
-          }
-        }
-        /*ボタンスタイル*/
-        .btn {
-            background-color: rgb(190, 216, 239);
-            color: black;
-            font-size: 14px;
-            padding: 15px 36px;
-        }
-        .btn1 {
-            background-color: white;
-            color: black;
-            font-size: 12px;
-            padding: 10px 33px;
-        }
-      </style>
-      </style>
-
+<style>
+/* スマートフォン対応 
+@media screen and (max-width: 768px) {
+    body {
+    font-size: 18px;
+    }
+}
+/*ボタンスタイル*/
+.btn {
+    background-color: rgb(151, 201, 248);
+    color: rgb(78, 4, 4);
+    font-size: 14px;
+    padding: 8px 12px;
+}
+.btn1 {
+    background-color: white;
+    color: black;
+    font-size: 12px;
+    padding: 10px 33px;
+}
+</style>
 
 <img src="/image/R3.jpg" alt="写真">
 <h1>実施店舗入力</h1>
@@ -34,7 +29,17 @@
         <table border="2">
         <tr>
             <th>実施日入力</th>
-        </tr>
+{% with messages = get_flashed_messages() %}
+    {% for message in messages %}
+        <li>
+            <i>
+                <font color="red">{{ message }}</font>
+            </i>
+        </li>
+    {% endfor %}
+{% endwith %}
+<p>
+</p>
         <tr>
             <td width="180">
                 <input  type="date" size="40"  required="required", name="date" value={{date}} >
@@ -54,7 +59,7 @@
     <p></p>
     <p></p>
     <p></p>
-    <input type="submit"  value="次へ" >
+    <input type="submit" class="btn", class="btn", value="次へ" >
     <!--<button class="btn" onclick="location.href='submit'">次へ </button>-->
 </form>
 <p></p>
@@ -62,5 +67,4 @@
 <P1>ログアウトする</P1>&nbsp;<a href="/logout"  role="botton">ログアウト</a><br>
 <!--<button class="btn1" onclick="location.href='/logout'">ログアウト</button>
 <a href="/"  role="botton">DB登録確認画面</a>-->
-</body></head></html>
 {% endblock %}

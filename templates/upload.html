@@ -5,11 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ST勤怠アプリ</title>
     <style>
-        /* スマートフォン対応 */
+        /* スマートフォン対応 
         @media screen and (max-width: 768px) {
-          body {
+            body {
             font-size: 18px;
-          }
+            }
+        }
+        /*ボタンスタイル*/
+        .btn {
+            background-color: rgb(151, 201, 248);
+            color: rgb(78, 4, 4);
+            font-size: 14px;
+            padding: 8px 12px;
+        }
+        .btn1 {
+            background-color: white;
+            color: black;
+            font-size: 12px;
+            padding: 10px 33px;
         }
       </style>
 </head>
@@ -24,7 +37,7 @@
     <form action="{{url_for('upload')}}" method="POST" enctype="multipart/form-data">
         <input type="file" name="photo_data" accept="image/*">
 
-        <input type="submit" value="送信" > 
+        <input type="submit" class="btn", value="送信" > 
     </form>
     {% endblock %}
 </body>
