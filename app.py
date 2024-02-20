@@ -324,12 +324,20 @@ def kintaiinput(id,date):
             kotuk = int(kotuk) * 80
         biko = request.form.get('biko1')      
         db = get_db()
-        #idと紐付けて実績データ(storeDat)からデータ取得
-        post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
-        db.execute("insert into kintai (datid,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko) values(?,?,?,?,?,?,?,?,?,?,?)",[id,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko]) 
-        #社員ﾏｽﾀ・実績・勤怠のデータ結合してIDを基にデータ取得
-        kintai_list = db.execute("SELECT * FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
-        db.commit()
+        #重複登録防止　datidと社員番号がヒットしなければ未登録と判断
+        rostercheck = db.execute("SELECT * FROM kintai WHERE datid=? AND roster=?",(id,roster,)).fetchone()
+        if not rostercheck:
+            #idと紐付けて実績データ(storeDat)からデータ取得
+            post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
+            db.execute("insert into kintai (datid,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko) values(?,?,?,?,?,?,?,?,?,?,?)",[id,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko]) 
+            #社員ﾏｽﾀ・実績・勤怠のデータ結合してIDを基にデータ取得
+            kintai_list = db.execute("SELECT * FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
+            db.commit()
+        else:
+            #社員ﾏｽﾀ・実績・勤怠のデータ結合してIDを基にデータ取得
+            post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
+            kintai_list = db.execute("SELECT * FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
+            db.commit()
 
  #表2から取得
         roster = request.form.get('roster2')
@@ -352,11 +360,19 @@ def kintaiinput(id,date):
             biko = request.form.get('biko2')
             db = get_db()
             #idと紐付けて実績データ(storeDat)からデータ取得
-            post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
-            db.execute("insert into kintai (datid,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko) values(?,?,?,?,?,?,?,?,?,?,?)",[id,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko]) 
-            #社員ﾏｽﾀ・実績・勤怠のデータ結合してIDを基にデータ取得
-            kintai_list = db.execute("SELECT * FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
-            db.commit()
+            rostercheck = db.execute("SELECT * FROM kintai WHERE datid=? AND roster=?",(id,roster,)).fetchone()
+            if not rostercheck:
+                #idと紐付けて実績データ(storeDat)からデータ取得
+                post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
+                db.execute("insert into kintai (datid,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko) values(?,?,?,?,?,?,?,?,?,?,?)",[id,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko]) 
+                #社員ﾏｽﾀ・実績・勤怠のデータ結合してIDを基にデータ取得
+                kintai_list = db.execute("SELECT * FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
+                db.commit()
+            else:
+                #社員ﾏｽﾀ・実績・勤怠のデータ結合してIDを基にデータ取得
+                post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
+                kintai_list = db.execute("SELECT * FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
+                db.commit()
 
  #表3から取得
         roster = request.form.get('roster3')
@@ -378,12 +394,19 @@ def kintaiinput(id,date):
                 kotuk = int(kotuk) * 80
             biko = request.form.get('biko3')
             db = get_db()
-            #idと紐付けて実績データ(storeDat)からデータ取得
-            post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
-            db.execute("insert into kintai (datid,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko) values(?,?,?,?,?,?,?,?,?,?,?)",[id,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko]) 
-            #社員ﾏｽﾀ・実績・勤怠のデータ結合してIDを基にデータ取得
-            kintai_list = db.execute("SELECT * FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
-            db.commit()
+            rostercheck = db.execute("SELECT * FROM kintai WHERE datid=? AND roster=?",(id,roster,)).fetchone()
+            if not rostercheck:
+                #idと紐付けて実績データ(storeDat)からデータ取得
+                post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
+                db.execute("insert into kintai (datid,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko) values(?,?,?,?,?,?,?,?,?,?,?)",[id,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko]) 
+                #社員ﾏｽﾀ・実績・勤怠のデータ結合してIDを基にデータ取得
+                kintai_list = db.execute("SELECT * FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
+                db.commit()
+            else:
+                #社員ﾏｽﾀ・実績・勤怠のデータ結合してIDを基にデータ取得
+                post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
+                kintai_list = db.execute("SELECT * FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
+                db.commit()
 
     #表4から取得
         roster = request.form.get('roster4')
@@ -405,12 +428,19 @@ def kintaiinput(id,date):
                 kotuk = int(kotuk) * 80
             biko = request.form.get('biko4')
             db = get_db()
-            #idと紐付けて実績データ(storeDat)からデータ取得
-            post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
-            db.execute("insert into kintai (datid,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko) values(?,?,?,?,?,?,?,?,?,?,?)",[id,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko]) 
-            #社員ﾏｽﾀ・実績・勤怠のデータ結合してIDを基にデータ取得
-            kintai_list = db.execute("SELECT * FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
-            db.commit()
+            rostercheck = db.execute("SELECT * FROM kintai WHERE datid=? AND roster=?",(id,roster,)).fetchone()
+            if not rostercheck:
+                #idと紐付けて実績データ(storeDat)からデータ取得
+                post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
+                db.execute("insert into kintai (datid,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko) values(?,?,?,?,?,?,?,?,?,?,?)",[id,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko]) 
+                #社員ﾏｽﾀ・実績・勤怠のデータ結合してIDを基にデータ取得
+                kintai_list = db.execute("SELECT * FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
+                db.commit()
+            else:
+                #社員ﾏｽﾀ・実績・勤怠のデータ結合してIDを基にデータ取得
+                post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
+                kintai_list = db.execute("SELECT * FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
+                db.commit()
 
     #表5から取得
         roster = request.form.get('roster5')
@@ -433,12 +463,19 @@ def kintaiinput(id,date):
             biko = request.form.get('biko5')
 
             db = get_db()
-            #idと紐付けて実績データ(storeDat)からデータ取得
-            post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
-            db.execute("insert into kintai (datid,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko) values(?,?,?,?,?,?,?,?,?,?,?)",[id,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko]) 
-            #社員ﾏｽﾀ・実績・勤怠のデータ結合してIDを基にデータ取得
-            kintai_list = db.execute("SELECT * FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
-            db.commit()
+            rostercheck = db.execute("SELECT * FROM kintai WHERE datid=? AND roster=?",(id,roster,)).fetchone()
+            if not rostercheck:
+                #idと紐付けて実績データ(storeDat)からデータ取得
+                post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
+                db.execute("insert into kintai (datid,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko) values(?,?,?,?,?,?,?,?,?,?,?)",[id,roster,date,leader,storein,storeout,kyus,kyue,kotue,kotuk,biko]) 
+                #社員ﾏｽﾀ・実績・勤怠のデータ結合してIDを基にデータ取得
+                kintai_list = db.execute("SELECT * FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
+                db.commit()
+            else:
+                #社員ﾏｽﾀ・実績・勤怠のデータ結合してIDを基にデータ取得
+                post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
+                kintai_list = db.execute("SELECT * FROM kintai JOIN user ON kintai.roster = user.roster JOIN storeDat ON kintai.datid = storeDat.id WHERE kintai.datid=?",(id,)) 
+                db.commit()
 
         if kintai_list is None:
             return render_template('kintaierror.html', id=id)
@@ -509,12 +546,15 @@ def upload():
          msg = ftp.login('stappajis', 'SVSwuX6l7tBm') 
          #写真保存
          file = request.files['photo_data']
-         file.save(os.path.join('', file.filename)) #テスト　Static/dataに保存
-         fp = open(file.filename, "rb")  #アップロードするファイル名
-         ftp.storbinary("STOR /test.jpg",fp) #ホスト側のディレクトリ　
-
-         #file.save(os.path.join('//landisk01/広場/StKintaiApp_Fold', file.filename))  #テストで広場に保存
-         return redirect(url_for('uploaded_file', filename=file.filename))
+         if file is not None:   
+            file.save(os.path.join('', file.filename)) 
+            fp = open(file.filename, "rb")  #アップロードするファイル名
+            ftp.storbinary("STOR /test.jpg",fp) #ホスト側のディレクトリ　
+            #file.save(os.path.join('//landisk01/広場/StKintaiApp_Fold', file.filename))  #テストで広場に保存
+            return redirect(url_for('uploaded_file', filename=file.filename))
+         else:
+             return render_template ('error.html')
+             
     
     return render_template ('upload.html')
 

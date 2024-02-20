@@ -27,10 +27,10 @@
     </style>
     <!--ブラウザバック禁止　JavaScript-->
     <script>
-        window.addEventListener("popstate", function (e) {
-        history.pushState(null, null, null);
-        return;
-        });
+    history.pushState(null, null, location.href);
+    window.addEventListener('popstate', (e) => {
+    history.go(1);
+    });
     </script>
 
 <img src="/image/R3.jpg" alt="写真">
@@ -40,6 +40,7 @@
     <P1>実施店舗の内容を確認してください。</P1>
     <!--<form method="POST">-->
     <form action="/{{id}}/kintaimain" method="POST">
+        
         <table width="700" border="2">
             <tr>
                 <th>ID</th>
