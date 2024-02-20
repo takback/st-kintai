@@ -333,7 +333,7 @@ def kintaiinput(id,date):
 
  #表2から取得
         roster = request.form.get('roster2')
-        if roster =="":
+        if roster is None:
             pass
         else: 
             leader = request.form.get('leader2')
@@ -360,7 +360,7 @@ def kintaiinput(id,date):
 
  #表3から取得
         roster = request.form.get('roster3')
-        if roster =="":
+        if roster is None:
             pass
         else:
             leader = request.form.get('leader3')
@@ -387,7 +387,7 @@ def kintaiinput(id,date):
 
     #表4から取得
         roster = request.form.get('roster4')
-        if roster =="":
+        if roster is None:
             pass
         else:
             leader = request.form.get('leader4')
@@ -414,7 +414,7 @@ def kintaiinput(id,date):
 
     #表5から取得
         roster = request.form.get('roster5')
-        if roster =="":
+        if roster is None:
             pass
         else:
             leader = request.form.get('leader5')
