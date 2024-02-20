@@ -318,7 +318,7 @@ def kintaiinput(id,date):
         if kotue == "":
             kotue = 0
         kotuk = request.form.get('kotuk1')
-        if kotuk is None:
+        if kotuk =="":
             kotuk = 0
         else:
             kotuk = int(kotuk) * 80
@@ -345,7 +345,7 @@ def kintaiinput(id,date):
             if kotue =="":
                 kotue = 0
             kotuk = request.form.get('kotuk2')
-            if kotuk is None:
+            if kotuk =="":
                 kotuk = 0
             else:
                 intkotuk = int(kotuk) * 80
@@ -372,7 +372,7 @@ def kintaiinput(id,date):
             if kotue == "":
                 kotue = 0
             kotuk = request.form.get('kotuk3')
-            if kotuk is None:
+            if kotuk =="":
                 kotuk = 0
             else:
                 kotuk = int(kotuk) * 80
@@ -399,7 +399,7 @@ def kintaiinput(id,date):
             if kotue =="":
                 kotue = 0
             kotuk = request.form.get('kotuk4')
-            if kotuk is None:
+            if kotuk =="":
                 kotuk = 0
             else:
                 kotuk = int(kotuk) * 80
@@ -426,7 +426,7 @@ def kintaiinput(id,date):
             if kotue =="":
                 kotue = 0
             kotuk = request.form.get('kotuk5')
-            if kotuk is None:
+            if kotuk =="":
                 kotuk = 0
             else:
                 kotuk = int(kotuk)*80
