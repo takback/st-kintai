@@ -195,13 +195,14 @@ def kintai(id,date):
  #表1から取得
         roster = request.form.get('roster1')
         if roster =="":
-            pass
-        db = get_db()
-        #idと紐付けて実績データ(storeDat)からデータ取得
-        post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
-        #社員ﾏｽﾀから氏名データ取得
-        person_list = db.execute("SELECT roster,name FROM user WHERE roster=?",(roster,)) 
-        db.commit()
+            return render_template('kintaierror.html', id=id)
+        else:
+            db = get_db()
+            #idと紐付けて実績データ(storeDat)からデータ取得
+            post = db.execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
+            #社員ﾏｽﾀから氏名データ取得
+            person_list = db.execute("SELECT roster,name FROM user WHERE roster=?",(roster,)) 
+            db.commit()
  #表2から取得
         roster = request.form.get('roster2')
         if roster =="":
