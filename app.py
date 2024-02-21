@@ -6,7 +6,7 @@ from collections.abc import Mapping, Sequence
 from typing import Any
 from flask_wtf import FlaskForm
 from wtforms import Form #TextField,StringField,TextAreaField,ValidationError
-import ftplib 
+import ftplib,zipfile
 #from wtforms.validators import Required,Length
 #from pydrive2.auth import GoogleAuth    
 #from pydrive2.drive import GoogleDrive  
@@ -491,6 +491,7 @@ def upload():
          msg = ftp.login('stappajis', 'SVSwuX6l7tBm') 
          #写真保存
          file = request.files['photo_data']
+        
          if file.filename == "":   
             return render_template ('error_camera.html')
          else:

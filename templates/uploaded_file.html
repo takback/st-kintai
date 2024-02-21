@@ -25,6 +25,16 @@
             padding: 10px 30px;
         }
       </style>
+    <!--ブラウザバック禁止　JavaScript-->
+    <script>
+        history.pushState(null, null, null);
+        $(window).on("popstate", function (event) {
+        if (!event.originalEvent.state) {
+        history.pushState(null, null, null);
+       return;
+        }
+        });
+   </script>
     
     <img src="/image/R3.jpg" alt="写真">
     <h2>写真のアップロードが</h2>

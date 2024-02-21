@@ -7,12 +7,14 @@
 
     <!--ブラウザバック禁止　JavaScript-->
     <script>
-        window.onload = function() {
         history.pushState(null, null, null);
-        window.addEventListener("popstate", function (e) {
+        $(window).on("popstate", function (event) {
+        if (!event.originalEvent.state) {
         history.pushState(null, null, null);
-        return;});};
-    </script>
+       return;
+        }
+        });
+   </script>
 </head></html>
 
 <img src="/image/R3.jpg" alt="写真">

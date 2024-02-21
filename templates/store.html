@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<html><head>
 <style>
 /* スマートフォン対応 
 @media screen and (max-width: 768px) {
@@ -24,6 +25,9 @@
 
 <img src="/image/R3.jpg" alt="写真">
 <h1>実施店舗入力</h1>
+<p></p>
+<P1>ログアウトする</P1>&nbsp;<a href="/logout"  role="botton">ログアウト</a>
+<p></p>
     <form method="POST" action="#">
     <!--<form action="/storepost" method="POST">-->
         <table border="2" bgcolor="#CCFFFF">
@@ -57,14 +61,9 @@
         </tr>
     </table>
     <p></p>
-    <p></p>
-    <p></p>
     <input type="submit" class="btn", class="btn", value="次へ" >
     <!--<button class="btn" onclick="location.href='submit'">次へ </button>-->
 </form>
-<p></p>
-<p></p>
-<P1>ログアウトする</P1>&nbsp;<a href="/logout"  role="botton">ログアウト</a><br>
-<!--<button class="btn1" onclick="location.href='/logout'">ログアウト</button>
-<a href="/"  role="botton">DB登録確認画面</a>-->
+</head></html>
+
 {% endblock %}
