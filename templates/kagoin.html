@@ -34,14 +34,14 @@
 <h3>入力なしの場合は0で入力してください</h3>
 <!--<form method="POST">-->
 <form action="/{{post.id}}/kagoin" method="POST">
-    <table width="250" border="2">
+    <table width="180" border="2" >
         <tr>
             <th>ID</th>
             <th>{{post.id}}</th>
         </tr>
         </tr>
     </table>
-    <table width="250" border="2">
+    <table width="180" border="2">
         <tr>
             <th>実施日</th>
         </tr>
@@ -49,7 +49,7 @@
             <th>{{post.date}}</th> 
         </tr>
     </table>
-    <table width="250" border="2">
+    <table width="180" border="2">
         <tr>
             <th>店舗コード</th>
         </tr>
@@ -57,7 +57,7 @@
             <th>{{post.storeNo}}</th>  
         </tr>
     </table>
-    <table width="250" border="2">
+    <table width="180" border="2">
         <tr>
             <th>企業名</th>
         </tr>
@@ -65,20 +65,20 @@
             <th>{{post.kigyo}}</th> 
         </tr>
     </table>
-    <table width="250" border="2">
+    <table width="180" border="2">
         <tr>
             <th>店舗名</th>
         </tr>
         <tr>
             <th>{{post.store}}</th> 
         </tr>
-    <table width="250" border="2" >
+    <table width="180" border="2" bgcolor="#CCFFFF">
         <tr>
             <th>オリコン数</th>
         </tr>
         <tr>
             <td>
-                <input type="number" size="250"   required="required", name="Oric" value="{{Oric}}">
+                <input type="number" size="180"   required="required", name="Oric" value="{{Oric}}">
             </td>
         </tr>
         <tr>
@@ -86,7 +86,7 @@
         </tr>
         <tr>
             <td>
-                <input type="number" size="250" required="required", name="Tape"  value="{{Tape}}">
+                <input type="number" size="180" required="required", name="Tape"  value="{{Tape}}">
             </td>
         </tr>
         <tr>
@@ -94,7 +94,7 @@
         </tr>
         <tr>
             <td>
-                <input type="number" size="250" required="required", name="cae"  value="{{cae}}">
+                <input type="number" size="180" required="required", name="cae"  value="{{cae}}">
             </td>
         </tr>
     </table>

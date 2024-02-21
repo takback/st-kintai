@@ -26,7 +26,6 @@
         }
     </style>
 
-    <!--ブラウザバック禁止　JavaScript-->
     <script>
 
     </script>
@@ -57,86 +56,85 @@
         
         <h3>交通費なしの場合は0で入力してください</h3>
         <P1>勤怠情報入力</P1>
-        <table border="2">
+        <table width="700" border="2">
             <tr>
-                <th>社員番号</th><th>氏名</th><th>リーダー</th><!--<th>合計カゴ車台数</th>--><th>開始</th><th>終了</th><th>休憩開始</th> <th>休憩終了</th><th>交通費(円)</th><th>交通費(km)</th><th>備考</th>
+                <th>社員番号</th><th> 氏名 </th><th bgcolor="#CCFFFF">リーダー</th><th bgcolor="#CCFFFF">開始</th><th bgcolor="#CCFFFF">終了</th><th bgcolor="#CCFFFF">休憩開始</th> <th bgcolor="#CCFFFF">休憩終了</th><th bgcolor="#CCFFFF">交通費(円)</th><th bgcolor="#CCFFFF">交通費(km)</th><th bgcolor="#CCFFFF">備考</th>
             </tr>
             <tr>
             {% for person in person_list %}
              <tr>       
-                <td><input type="text", name="roster1" value="{{person.roster}}" ></td>
-                <!--<td width="10">{{person.roster}}</td>
-                <td><input type="text", name="name1" value="{{person.name}}" ></td>-->
-                <td width="150">{{person.name}}</td>                
-                <td width="20"><input type="radio", name="leader1" value="1"></td>
+                <td width="80"><input type="text" , name="roster1" value="{{person.roster}}" ></td>
+                <td width="150"><input type="text" , name="name" value="{{person.name}}" disabled ></td>               
+                <td bgcolor="#CCFFFF" width width="20"><input type="checkbox", name="leader1" value="1"></td>
                 <!--<td>{{total}}</td>-->
-                <td><input type="time", name="storein1" value="{{storein1}}"></td>
-                <td><input type="time", name="storeout1" value="{{storeout1}}"></td>
-                <td><input type="time", name="kyus1" value="{{kyus1}}"></td>
-                <td><input type="time", name="kyue1" value="{{kyue1}}"></td>
-                <td width="10"><input type="number" size="8" , name="kotue1" value="{{kotue1}}"></td>
-                <td width="10"><input type="number" size="8" , name="kotuk1" value="{{kotuk1}}"></td>
-                <td><input type="text", name="biko1" value="{{biko1}}"></td>
+                <td bgcolor="#CCFFFF" width width="50"><input type="time", name="storein1" value="{{storein1}}"></td>
+                <td bgcolor="#CCFFFF" width width="50"><input type="time", name="storeout1" value="{{storeout1}}"></td>
+                <td bgcolor="#CCFFFF" width width="50"><input type="time", name="kyus1" value="{{kyus1}}"></td>
+                <td bgcolor="#CCFFFF" width width="50"><input type="time", name="kyue1" value="{{kyue1}}"></td>
+                <td bgcolor="#CCFFFF" width width="20"><input type="number" size="1" , name="kotue1" value="{{kotue1}}"></td>
+                <td bgcolor="#CCFFFF" width width="20"><input type="number" size="1"  , name="kotuk1" value="{{kotuk1}}"></td>
+                <td bgcolor="#CCFFFF" width width="110"><input type="text", name="biko1" value="{{biko1}}"></td>
             </tr>
             {% endfor %}
             {% for person2 in person_list2 %}
              <tr>
                 <td><input type="text", name="roster2" value="{{person2.roster}}" ></td>
-                <td width="150">{{person2.name}}</td>
-                <td width="20"><input type="radio", name="leader2" value="2"></td>
+                <td width="150"><input type="text" , name="name" value="{{person2.name}}" disabled ></td> 
+                <!--<td>{{person2.name}}</td>-->
+                <td bgcolor="#CCFFFF"><input type="checkbox", name="leader2" value="2"></td>
                 <!--<td>{{total}}</td>-->
-                <td><input type="time", name="storein2" value="{{storein2}}"></td>
-                <td><input type="time", name="storeout2" value="{{storeout2}}"></td>
-                <td><input type="time", name="kyus2" value="{{kyus2}}"></td>
-                <td><input type="time", name="kyue2" value="{{kyue2}}"></td>
-                <td width="10"><input type="number" size="8" , name="kotue2" value="{{kotue2}}"></td>
-                <td width="10"><input type="number" size="8" , name="kotuk2" value="{{kotuk2}}"></td>
-                <td><input type="text", name="biko2" value="{{biko2}}"></td>
+                <td bgcolor="#CCFFFF"><input type="time", name="storein2" value="{{storein2}}"></td>
+                <td bgcolor="#CCFFFF"><input type="time", name="storeout2" value="{{storeout2}}"></td>
+                <td bgcolor="#CCFFFF"><input type="time", name="kyus2" value="{{kyus2}}"></td>
+                <td bgcolor="#CCFFFF"><input type="time", name="kyue2" value="{{kyue2}}"></td>
+                <td bgcolor="#CCFFFF"><input type="number" , name="kotue2" value="{{kotue2}}"></td>
+                <td bgcolor="#CCFFFF"><input type="number" , name="kotuk2" value="{{kotuk2}}"></td>
+                <td bgcolor="#CCFFFF"><input type="text", name="biko2" value="{{biko2}}"></td>
              </tr>
             {% endfor %}
             {% for person3 in person_list3 %}
              <tr>
                 <td><input type="text", name="roster3" value="{{person3.roster}}"></td>
-                <td width="150">{{person3.name}}</td>
-                <td width="20"><input type="radio", name="leader3 value="3"></td>
+                <td width="150"><input type="text" , name="name" value="{{person3.name}}" disabled ></td> 
+                <td bgcolor="#CCFFFF"><input type="checkbox", name="leader3" value="3"></td>
                 <!--<td>{{total}}</td>-->
-                <td><input type="time", name="storein3" value="{{storein3}}"></td>
-                <td><input type="time", name="storeout3" value="{{storeout3}}"></td>
-                <td><input type="time", name="kyus3" value="{{kyus3}}"></td>
-                <td><input type="time", name="kyue3" value="{{kyue3}}"></td>
-                <td width="10"><input type="number" size="8" , name="kotue3" value="{{kotue3}}"></td>
-                <td width="10"><input type="number" size="8" , name="kotuk3" value="{{kotuk3}}"></td>
-                <td><input type="text", name="biko3" value="{{biko3}}"></td>
+                <td bgcolor="#CCFFFF"><input type="time", name="storein3" value="{{storein3}}"></td>
+                <td bgcolor="#CCFFFF"><input type="time", name="storeout3" value="{{storeout3}}"></td>
+                <td bgcolor="#CCFFFF"><input type="time", name="kyus3" value="{{kyus3}}"></td>
+                <td bgcolor="#CCFFFF"><input type="time", name="kyue3" value="{{kyue3}}"></td>
+                <td bgcolor="#CCFFFF"><input type="number" , name="kotue3" value="{{kotue3}}"></td>
+                <td bgcolor="#CCFFFF"><input type="number" , name="kotuk3" value="{{kotuk3}}"></td>
+                <td bgcolor="#CCFFFF"><input type="text", name="biko3" value="{{biko3}}"></td>
              </tr>
             {% endfor %}
             {% for person4 in person_list4 %}
              <tr>
                 <td><input type="text", name="roster4" value="{{person4.roster}}"></td>
-                <td width="150">{{person4.name}}</td>
-                <td width="20"><input type="radio", name="leader4" value="4"></td>
-                <!--<td>{{total}}</td>-->
-                <td><input type="time", name="storein4" value="{{storein4}}"></td>
-                <td><input type="time", name="storeout4" value="{{storeout4}}"></td>
-                <td><input type="time", name="kyus4" value="{{kyus4}}"></td>
-                <td><input type="time", name="kyue4" value="{{kyue4}}"></td>
-                <td width="10"><input type="number" size="8" , name="kotue4" value="{{kotue4}}"></td>
-                <td width="10"><input type="number" size="8" , name="kotuk4" value="{{kotuk4}}"></td>
-                <td><input type="text", name="biko4" value="{{biko4}}"></td>
+                <td width="150"><input type="text" , name="name" value="{{person4.name}}" disabled ></td> 
+                <td bgcolor="#CCFFFF"><input type="checkbox", name="leader4" value="4"></td>
+                <!--<td bgcolor="#CCFFFF">{{total}}</td>-->
+                <td bgcolor="#CCFFFF"><input type="time", name="storein4" value="{{storein4}}"></td>
+                <td bgcolor="#CCFFFF"><input type="time", name="storeout4" value="{{storeout4}}"></td>
+                <td bgcolor="#CCFFFF"><input type="time", name="kyus4" value="{{kyus4}}"></td>
+                <td bgcolor="#CCFFFF"><input type="time", name="kyue4" value="{{kyue4}}"></td>
+                <td bgcolor="#CCFFFF"><input type="number" , name="kotue4" value="{{kotue4}}"></td>
+                <td bgcolor="#CCFFFF"><input type="number" , name="kotuk4" value="{{kotuk4}}"></td>
+                <td bgcolor="#CCFFFF"><input type="text", name="biko4" value="{{biko4}}"></td>
              </tr>
             {% endfor %}
             {% for person5 in person_list5 %}
              <tr>
                 <td><input type="text", name="roster5" value="{{person5.roster}}"></td>
-                <td width="150">{{person5.name}}</td>
-                <td width="20"><input type="radio", name="leader5" value="5"></td>
+                <td width="150"><input type="text" , name="name" value="{{person5.name}}" disabled ></td> 
+                <td bgcolor="#CCFFFF"><input type="checkbox", name="leader5" value="5"></td>
                 <!--<td>{{total}}</td>-->
-                <td><input type="time", name="storein5" value="{{storein5}}"></td>
-                <td><input type="time", name="storeout5" value="{{storeout5}}"></td>
-                <td><input type="time", name="kyus5" value="{{kyus5}}"></td>
-                <td><input type="time", name="kyue5" value="{{kyue5}}"></td>
-                <td width="10"><input type="number" size="8" , name="kotue5" value="{{kotue5}}"></td>
-                <td width="10"><input type="number" size="8" , name="kotuk5" value="{{kotuk5}}"></td>
-                <td><input type="text", name="biko5" value="{{biko5}}"></td>
+                <td bgcolor="#CCFFFF"><input type="time", name="storein5" value="{{storein5}}"></td>
+                <td bgcolor="#CCFFFF"><input type="time", name="storeout5" value="{{storeout5}}"></td>
+                <td bgcolor="#CCFFFF"><input type="time", name="kyus5" value="{{kyus5}}"></td>
+                <td bgcolor="#CCFFFF"><input type="time", name="kyue5" value="{{kyue5}}"></td>
+                <td bgcolor="#CCFFFF"><input type="number" , name="kotue5" value="{{kotue5}}"></td>
+                <td bgcolor="#CCFFFF"><input type="number" , name="kotuk5" value="{{kotuk5}}"></td>
+                <td bgcolor="#CCFFFF"><input type="text", name="biko5" value="{{biko5}}"></td>
              </tr>
             {% endfor %}
 

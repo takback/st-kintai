@@ -546,14 +546,14 @@ def upload():
          msg = ftp.login('stappajis', 'SVSwuX6l7tBm') 
          #写真保存
          file = request.files['photo_data']
-         if file is not None:   
+         if file == "":   
             file.save(os.path.join('', file.filename)) 
             fp = open(file.filename, "rb")  #アップロードするファイル名
             ftp.storbinary("STOR /test.jpg",fp) #ホスト側のディレクトリ　
             #file.save(os.path.join('//landisk01/広場/StKintaiApp_Fold', file.filename))  #テストで広場に保存
             return redirect(url_for('uploaded_file', filename=file.filename))
          else:
-             return render_template ('error.html')
+             return render_template ('error_camera.html')
              
     
     return render_template ('upload.html')

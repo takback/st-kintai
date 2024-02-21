@@ -4,10 +4,32 @@
     <!--CSSを埋め込む-->
     <link rel="stylesheet"
     href="{{url_for('static',filename='style.css')}}">
-</head></html>
+    <style>
+        /* スマートフォン対応 
+        @media screen and (max-width: 768px) {
+            body {
+            font-size: 18px;
+            }
+        }
+        /*ボタンスタイル*/
+        .btn {
+            background-color: rgb(151, 201, 248);
+            color: rgb(78, 4, 4);
+            font-size: 14px;
+            padding: 8px 12px;
+        }
+        .btn1 {
+            background-color: white;
+            color: black;
+            font-size: 12px;
+            padding: 10px 33px;
+        }
+      </style>
+    <script>
+    </script>
 
 <img src="/image/R3.jpg" alt="写真">
-<h1>編集</h1>
+<h1>勤怠編集</h1>
 <form method="POST">
     <table width="700" border="2">
         <tr>
@@ -51,7 +73,7 @@
             </td>
             <td>{{kintai.name}}</td>
             <td>
-                <input type="radio", name="leader" value="1">
+                <input type="checkbox", name="leader" value="1">
             </td>
             <td>
                 <input type="time", name="storein" value="{{kintai.storein}}">
@@ -78,12 +100,11 @@
         {% endfor %}
     </table>
     <p></p>
-    <p></p>
     <p1>確認画面で内容を再確認</p1><br>
-    <input type="submit" value="修正　勤怠確認画面へ">
     <p></p>
+    <input type="submit"　 class="btn" value="修正　勤怠確認画面へ">
     <p></p>
-    <p></p>
+
 </form>
 
 <!--<a href="/"  role="botton">一覧に戻る</a>-->
