@@ -32,62 +32,6 @@ class User(UserMixin):
     def __init__(self,roster):
         self.id = roster
 
-#GoogleDrive接続用クラス
-class GoogleDriveFacade:
-    
-    def __init__(self, setting_path: str='settings.yaml'):
-        gauth = GoogleAuth(setting_path)
-        gauth.LocalWebserverAuth()
-
-        self.drive = GoogleDrive(gauth)
-
-    def create_folder(self, folder_name):
-        ret = self.check_files(folder_name)
-        if ret:
-            folder = ret
-            print(f"{folder['title']}: exists")
-        else:   
-            folder = self.drive.CreateFile(
-                {
-                    'title': folder_name,
-                    'mimeType': 'application/vnd.google-apps.folder'
-                }
-            )
-            folder.Upload()
-
-        return folder
-
-    def check_files(self, folder_name,):
-        query = f'title = "{os.path.basename(folder_name)}"'
-
-        list = self.drive.ListFile({'q': query}).GetList()
-        if len(list)> 0:
-            return list[0]
-        return False
-
-    def upload(self, 
-               local_file_path: str,
-               save_folder_name: str = 'sample',
-               is_convert : bool=True,
-        ):
-        
-        if save_folder_name:
-            folder = self.create_folder(save_folder_name)
-        
-        file = self.drive.CreateFile(
-            {
-                'title':os.path.basename(local_file_path),
-                'parents': [
-                    {'id': folder["id"]}
-                ]
-            }
-        )
-        file.SetContentFile(local_file_path)
-        file.Upload({'convert': is_convert})
-        
-        drive_url = f"https://drive.google.com/uc?id={str( file['id'] )}" 
-        return drive_url
-
 ##ログイン
 @login_manager.user_loader
 def load_user(roster):
@@ -546,14 +490,14 @@ def upload():
          msg = ftp.login('stappajis', 'SVSwuX6l7tBm') 
          #写真保存
          file = request.files['photo_data']
-         if file == "":   
+         if file.filename == "":   
+            return render_template ('error_camera.html')
+         else:
             file.save(os.path.join('', file.filename)) 
             fp = open(file.filename, "rb")  #アップロードするファイル名
             ftp.storbinary("STOR /test.jpg",fp) #ホスト側のディレクトリ　
             #file.save(os.path.join('//landisk01/広場/StKintaiApp_Fold', file.filename))  #テストで広場に保存
             return redirect(url_for('uploaded_file', filename=file.filename))
-         else:
-             return render_template ('error_camera.html')
              
     
     return render_template ('upload.html')
