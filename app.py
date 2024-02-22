@@ -72,19 +72,14 @@ def login():
 
     if request.method == 'POST':
        roster = request.form.get('roster')
-       #password= request.form.get('password')
-       #ロインチェック  
        user_data = get_db().execute(
            "select name from user where roster=?",[roster,]).fetchone()
        get_db().commit()
        if user_data is not None:
-           ##if check_password_hash(user_data[0],password): 暗号化チェック
                roster = User(roster)
                login_user(roster)
-               ##return redirect('/')
                return redirect('/store')
-               ##return render_template('store.html')
-          
+ 
        error_message = '入力されたIDもしくはパスワードが誤っています。'
 
     return render_template('login.html',roster=roster,error_message=error_message)
@@ -109,23 +104,7 @@ def store():
   
     ##確認後登録 追加
     return render_template('store.html')
-    
-#店舗入力確認 未使用
-#@app.route("/storepost",methods=['GET','POST'])
-#@login_required
-#料金算出項目を登録
-#def storepost():
-    #if request.method == 'GET':
-       #date = request.form.get('date')
-       #storeNo = request.form.get('storeNo')
-       #kigyo = request.form.get('kigyo')
-       #store = request.form.get('store')
-       #db = get_db()
-       #post = db.execute("insert into storeDat (date,storeNo,kigyo,store) values(?,?,?,?)",[date,storeNo,kigyo,store])
-       #db.commit()
-       #return render_template ('chargein.html')  
-    #return render_template('chargein.html')
-     
+        
 @app.route("/<date>/<storeNo>/<kigyo>/<store>/charge",methods=['GET','POST'])
 @login_required
 def charge(date,storeNo,kigyo,store):
