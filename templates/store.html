@@ -33,9 +33,7 @@
 
 <img src="/image/R3.jpg" alt="写真">
 <h1>実施店舗入力</h1>
-<p></p>
-<button onclick="location.href='/logout'">ログアウト </button>
-<p></p>
+
     <form method="POST" action="#">
     <!--<form action="/storepost" method="POST">-->
         <table border="2" bgcolor="#CCFFFF">
@@ -54,7 +52,7 @@
 </p>
         <tr>
             <td width="180">
-                <input  type="date" size="40"  required="required", name="date" value={{date}} >
+                <input  type="date" size="40"  required="required", name="date" value={{date}} autofocus>
             </td>
         </tr>
     </table>
@@ -70,6 +68,11 @@
     </table>
     <p></p>
     <input type="submit" class="btn", class="btn", value="確認へ" autofocus >
+    <tr>
+        <p></p>
+        <button onclick="location.href='/logout'">ログアウト </button>
+        <p></p>
+    </tr>
 </form>
 </head></html>
 

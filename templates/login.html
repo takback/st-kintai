@@ -38,9 +38,12 @@
 <p style="color:red">{{error_message}} </p>
     
 <!--ログインフォーム-->
-<p></p>
-<P1>新規ユーザー登録はこちら</P1>&nbsp;<button onclick="location.href='/signup'">新規ユーザー登録 </button>
-<p></p>
+<tr>
+    <p></p>
+    <P1>新規ユーザー登録はこちら</P1><br>
+    <button onclick="location.href='/signup'">新規ユーザー登録 </button>
+    <p></p>
+</tr>
 <form method="POST">
     <table border="2" bgcolor="#CCFFFF">
         <tr>
@@ -48,7 +51,7 @@
         </tr>
         <tr>
             <td>
-                <input type="text" required="required" minlength="7" maxlength="7", name="roster" vallue="{{roster}}" autofocus>
+                <input type="text" required="required" minlength="7" maxlength="7", name="roster" vallue="{{roster}}" >
             </td>
         </tr>
     </table>
@@ -65,6 +68,8 @@
     </table>
     <p></p>
     <input type="submit"  class="btn", value="ログイン" >
+    <p></p>
+
 </form>
 
 </head></html>
