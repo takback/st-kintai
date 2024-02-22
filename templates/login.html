@@ -13,7 +13,7 @@
     background-color: rgb(151, 201, 248);
     color: rgb(78, 4, 4);
     font-size: 28px;
-    padding: 4px 6px;
+    padding: 4px 8px;
 }
 .btn1 {
     background-color: white;
@@ -30,6 +30,8 @@
 <p style="color:red">{{error_message}} </p>
     
 <!--ログインフォーム-->
+<p></p>
+<P1>新規ユーザー登録はこちら</P1>&nbsp;<a href="/signup"> 新規ユーザー登録</a>
 
 <form method="POST">
     <table border="2" bgcolor="#CCFFFF">
@@ -43,7 +45,7 @@
         </tr>
     </table>
 
-    <table border="2" bgcolor="#CCFFFF">
+    <!--<table border="2" bgcolor="#CCFFFF">
         <tr>
             <th>パスワード</th>
         </tr>
@@ -51,18 +53,13 @@
             <td>
                 <input type="password", name="password">
             </td>
-        </tr>
+        </tr>-->
     </table>
     <p></p>
     <p></p>
     <p></p>
     <input type="submit"  class="btn", value="ログイン" >
 </form>
-<p></p>
-<P1>新規ユーザー登録は以下から</P1>
-<br>
-<!--<button class="btn1" onclick="location.href='/signup'">新規ユーザー登録 </button>-->
-<p></p>
-<a href="/signup"> 新規ユーザー登録</a>
+
 </head></html>
 {% endblock %}
