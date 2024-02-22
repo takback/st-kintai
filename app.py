@@ -75,10 +75,10 @@ def login():
 
     if request.method == 'POST':
        roster = request.form.get('roster')
-       #password= request.form.get('password')
+       password= request.form.get('password')
        #ロインチェック  
        user_data = get_db().execute(
-           "select roster from user where roster=?",[roster,]).fetchone()
+           "select password from user where roster=?",[roster,]).fetchone()
        get_db().commit()
        if user_data is not None:
            ##if check_password_hash(user_data[0],password): 暗号化チェック
