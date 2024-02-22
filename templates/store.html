@@ -23,12 +23,7 @@
 }
 </style>
 <script>
-    window.onload=function(){
-    window.addEventListener("keydown",reloadoff,false);
-    }
-    function reloadoff(evt){
-    evt.preventDefault();
-    }
+
 </script>
 
 <img src="/image/R3.jpg" alt="写真">
@@ -62,7 +57,7 @@
         </tr>
         <tr>
             <td width=180">
-                <input type="number"  required="required" minlength="6" maxlength="6" , name="storeNo" value={{storeNo}} >
+                <input type="text"  required="required" minlength="6" maxlength="6" , name="storeNo" value={{storeNo}} >
             </td>
         </tr>
     </table>

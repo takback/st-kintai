@@ -23,12 +23,7 @@
 }
 </style>
 <script>
-    window.onload=function(){
-    window.addEventListener("keydown",reloadoff,false);
-    }
-    function reloadoff(evt){
-    evt.preventDefault();
-    }
+
 </script>
 
 <img src="/image/R3.jpg" alt="写真">
@@ -38,12 +33,14 @@
 <p style="color:red">{{error_message}} </p>
     
 <!--ログインフォーム-->
+
+<p></p>
+<P1>新規ユーザー登録はこちら</P1><br>
+<p></p>
 <tr>
-    <p></p>
-    <P1>新規ユーザー登録はこちら</P1><br>
     <button onclick="location.href='/signup'">新規ユーザー登録 </button>
-    <p></p>
 </tr>
+<p></p>
 <form method="POST">
     <table border="2" bgcolor="#CCFFFF">
         <tr>
@@ -51,7 +48,7 @@
         </tr>
         <tr>
             <td>
-                <input type="number" required="required" minlength="7" maxlength="7", name="roster" vallue="{{roster}}" >
+                <input type="text" minlength="7" maxlength="7", name="roster" vallue="{{roster}}">
             </td>
         </tr>
     </table>

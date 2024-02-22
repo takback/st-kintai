@@ -26,12 +26,6 @@
         }
       </style>
     <script>
-        window.onload=function(){
-        window.addEventListener("keydown",reloadoff,false);
-        }
-        function reloadoff(evt){
-        evt.preventDefault();
-        }
     </script>
 
 
@@ -40,7 +34,7 @@
 <h3>入力なしの場合は0で入力してください</h3>
 <!--<form method="POST">-->
 <p></p>
-<button onclick="location.href='/logout'">ログアウト </button>
+<button onclick="location.href='/logout'">ログアウト</button>
 <p></p>
 <form action="/{{post.id}}/kagoin" method="POST">
     <table width="180" border="2" >
