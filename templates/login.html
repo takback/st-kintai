@@ -23,9 +23,12 @@
 }
 </style>
 <script>
-    window.addEventListener("beforeunload", function () {
-    window.location.replace(location.href);
-    });
+    window.onload=function(){
+    window.addEventListener("keydown",reloadoff,false);
+    }
+    function reloadoff(evt){
+    evt.preventDefault();
+    }
 </script>
 
 <img src="/image/R3.jpg" alt="写真">
