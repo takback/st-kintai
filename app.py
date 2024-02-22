@@ -51,15 +51,12 @@ def signup():
     error_message =''
     if request.method == 'POST':
        roster = request.form.get('roster')
-       password= request.form.get('password')
        name= request.form.get('name')
-       ##pass_hash = generate_password_hash(password )  パスワード暗号化
-       #pass_hash = generate_password_hash(password ,method = 'sha256')
-
+     
        db = get_db()
        user_cheack = get_db().execute("select roster from user where roster=?",[roster,]).fetchall()
        if not user_cheack:       
-            db.execute("insert into user (roster,name,password) values(?,?,?)",[roster,name,password])
+            db.execute("insert into user (roster,name) values(?,?,?)",[roster,name])
             ##[roster,pass_hash]　パスワード暗号化
             db.commit()
             return redirect('/login')
@@ -75,10 +72,10 @@ def login():
 
     if request.method == 'POST':
        roster = request.form.get('roster')
-       password= request.form.get('password')
+       #password= request.form.get('password')
        #ロインチェック  
        user_data = get_db().execute(
-           "select password from user where roster=?",[roster,]).fetchone()
+           "select name from user where roster=?",[roster,]).fetchone()
        get_db().commit()
        if user_data is not None:
            ##if check_password_hash(user_data[0],password): 暗号化チェック
