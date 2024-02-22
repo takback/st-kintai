@@ -35,6 +35,9 @@
 
     <P1>実施店舗の内容を確認してください。</P1>
     <!--<form method="POST">-->
+    <p></p>
+    <P1>ログアウトする</P1>&nbsp;<button onclick="location.href='/logout'">ログアウト </button>
+    <p></p>
     <form action="/{{id}}/kintaimain" method="POST">
         
         <table width="700" border="2">
@@ -89,12 +92,8 @@
             {% endfor %}
         </table> 
         <p></p>
-        <p></p>
-        <p></p> 
         <input type="submit" class="btn", value="確定(CSV出力)・次へ" > 
         <!--<button class="btn" onclick="location.href='submit'">確定(CSV出力)・次へ </button> -->
-        <p></p>
-        <p></p>
         <p></p>  
     </form>
     
@@ -103,8 +102,7 @@
     <a href="/upload" role="button">カメラ起動画面へ</a> &nbsp;-->
     <!--<P1>ログアウトする</P1><br>
     <button class="btn1" onclick="location.href='/logout'">ログアウト</button>-->
-    <P1>ログアウトする</P1>
-    <a href="/logout"  role="botton">ログアウト</a>
+    <!--<P1>ログアウトする</P1>&nbsp;<a href="/logout"  role="botton">ログアウト</a>-->
 </head></html>
        
 {% endblock %}

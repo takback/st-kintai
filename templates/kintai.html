@@ -34,6 +34,9 @@
 
 <P>社員番号入力してください。</P>
 <P1>店舗情報</P1>
+<p></p>
+<P1>ログアウトする</P1>&nbsp;<button onclick="location.href='/logout'">ログアウト </button>
+<p></p>
     <form action="/{{id}}/{{post.date}}/kintai" method="POST" >
         <table width="700" border="2">
             <tr>
@@ -86,8 +89,7 @@
     </form>
     <!--<P1>ログアウトする</P1><br>
     <button class="btn1" onclick="location.href='/logout'">ログアウト</button>-->
-    <P1>ログアウトする</P1>
-    <a href="/logout"  role="botton">ログアウト</a>
+    <!--<P1>ログアウトする</P1>&nbsp;<a href="/logout"  role="botton">ログアウト</a>-->
 </head></html>
             
 {% endblock %}
