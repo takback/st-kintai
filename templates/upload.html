@@ -1,9 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
-<html><head>
+<html><head></head>
     <!--CSSを埋め込む-->
     <link rel="stylesheet"
     href="{{url_for('static',filename='style.css')}}">
+<script>
+
+  history.pushState(null, null, null);
+
+  //ブラウザの戻る／すすむボタンで発火するイベント
+  window.onpopstate = function (event) {
+          //連続で戻るボタンがクリックされたときにも戻れない様に、履歴にnullを追加する。 
+          history.pushState(null, null, null)
+      var r = confirm("このページでのブラウザの戻るボタンは禁止されています。トップページに移動しますか？");
+      if (r == true) {
+          //コンテキストルートに戻る
+          var context = window.location.pathname.substring(0, window.location.pathname.indexOf("/logout", 2));
+          window.location.replace(context);
+      } else {
+
+      }
+  };
+</script>  
     <style>
         /* スマートフォン対応 
         @media screen and (max-width: 768px) {
@@ -24,18 +42,7 @@
             font-size: 12px;
             padding: 10px 30px;
         }
-      </style>
-    <!--ブラウザバック禁止　JavaScript-->
-    <script>
-        history.pushState(null, null, null);
-        $(window).on("popstate", function (event) {
-        if (!event.originalEvent.state) {
-        history.pushState(null, null, null);
-       return;
-        }
-        });
-   </script>         
-
+      </style>    
 
     <img src="/image/R3.jpg" alt="写真">
     <h1>カメラ画像保存</h1>

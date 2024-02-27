@@ -23,9 +23,24 @@
             font-size: 12px;
         }
     </style>
-    <!--ブラウザバック禁止　JavaScript-->
     <script>
-    </script>
+
+        history.pushState(null, null, null);
+    
+        //ブラウザの戻る／すすむボタンで発火するイベント
+        window.onpopstate = function (event) {
+                //連続で戻るボタンがクリックされたときにも戻れない様に、履歴にnullを追加する。 
+                history.pushState(null, null, null)
+            var r = confirm("このページでのブラウザの戻るボタンは禁止されています。トップページに移動しますか？");
+            if (r == true) {
+                //コンテキストルートに戻る
+                var context = window.location.pathname.substring(0, window.location.pathname.indexOf("/logout", 2));
+                window.location.replace(context);
+            } else {
+    
+            }
+        };
+    </script>  
 
 <img src="/image/R3.jpg" alt="写真">
 <h1>勤怠確認画面</h1>
