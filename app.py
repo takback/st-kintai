@@ -51,12 +51,14 @@ def signup():
     error_message =''
     if request.method == 'POST':
        roster = request.form.get('roster')
-       name= request.form.get('name')
-     
+       password= request.form.get('password')
+       ##pass_hash = generate_password_hash(password )  パスワード暗号化
+       #pass_hash = generate_password_hash(password ,method = 'sha256')
+
        db = get_db()
        user_cheack = get_db().execute("select roster from user where roster=?",[roster,]).fetchall()
        if not user_cheack:       
-            db.execute("insert into user (roster,name) values(?,?,?)",[roster,name])
+            db.execute("insert into user (roster,password) values(?,?)",[roster,password])
             ##[roster,pass_hash]　パスワード暗号化
             db.commit()
             return redirect('/login')
@@ -72,18 +74,21 @@ def login():
 
     if request.method == 'POST':
        roster = request.form.get('roster')
+       password= request.form.get('password')
+       #ロインチェック  
        user_data = get_db().execute(
-           "select name from user where roster=?",[roster,]).fetchone()
-       get_db().commit()
+           "select password from user where roster=?",[roster,]).fetchone()
        if user_data is not None:
+           ##if check_password_hash(user_data[0],password): 暗号化チェック
                roster = User(roster)
                login_user(roster)
+               ##return redirect('/')
                return redirect('/store')
- 
+               ##return render_template('store.html')
+          
        error_message = '入力されたIDもしくはパスワードが誤っています。'
 
     return render_template('login.html',roster=roster,error_message=error_message)
-
 #店舗入力
 @app.route("/store",methods=['GET','POST'])
 @login_required
