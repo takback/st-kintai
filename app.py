@@ -15,6 +15,7 @@ import sqlite3
 import pandas as pd
 import numpy
 import csv
+import datetime
 
 DATABASE="StApp.db"
 from flask_login import UserMixin,LoginManager,login_required,login_user,logout_user,login_required,current_user
@@ -74,10 +75,10 @@ def login():
 
     if request.method == 'POST':
        roster = request.form.get('roster')
-       password= request.form.get('password')
+       #password= request.form.get('password')
        #ロインチェック  
        user_data = get_db().execute(
-           "select password from user where roster=?",[roster,]).fetchone()
+           "select * from user where roster=?",[roster,]).fetchone()
        if user_data is not None:
            ##if check_password_hash(user_data[0],password): 暗号化チェック
                roster = User(roster)
@@ -89,6 +90,7 @@ def login():
        error_message = '入力されたIDもしくはパスワードが誤っています。'
 
     return render_template('login.html',roster=roster,error_message=error_message)
+
 #店舗入力
 @app.route("/store",methods=['GET','POST'])
 @login_required
@@ -109,27 +111,41 @@ def store():
   
     ##確認後登録 追加
     return render_template('store.html')
+
+##店舗確認
+@app.route("/<id>/storepost",methods=['GET','POST'])
+@login_required
+def storepost(id):
+    if request.method == 'POST':
+        #画面からの登録情報取得
+        db = get_db()
+        post = get_db().execute("select date,storeNo,kigyo,store from storeDat where id=?",(id,)).fetchone()
+        db.commit()
+        return render_template('kintai.html',id=id,post=post)
+    
         
 @app.route("/<date>/<storeNo>/<kigyo>/<store>/charge",methods=['GET','POST'])
 @login_required
 def charge(date,storeNo,kigyo,store):
     if request.method == 'POST':
-        foL = request.form.get('foL')
-        siL = request.form.get('siL')
-        oricon = request.form.get('oricon')
-        cas = request.form.get('cas')
-        sake = request.form.get('sake')
+        #foL = request.form.get('foL')
+        #siL = request.form.get('siL')
+        # = request.form.get('oricon')
+        #cas = request.form.get('cas')
+        #sake = request.form.get('sake')
         db = get_db()
         ##確認後登録
-        db.execute("insert into storeDat (date,storeNo,kigyo,store,foL,siL,oricon,cas,sake) values(?,?,?,?,?,?,?,?,?)"
-                   ,[date,storeNo,kigyo,store,foL,siL,oricon,cas,sake])
+        #db.execute("insert into storeDat (date,storeNo,kigyo,store,foL,siL,oricon,cas,sake) values(?,?,?,?,?,?,?,?,?)"
+                   #,[date,storeNo,kigyo,store,foL,siL,oricon,cas,sake])
+        db.execute("insert into storeDat (date,storeNo,kigyo,store) values(?,?,?,?)",[date,storeNo,kigyo,store])
         #DBに登録した情報(最新ID)を取得 
         post = db.execute("select id,date,storeNo,kigyo,store from storeDat where id = (SELECT MAX(id) FROM storeDat)" ).fetchone()
         db.commit()
         #return render_template ('chargein.html',date=date,storeNo=storeNo,kigyo=kigyo,store=store,post=post)  オリコンケース入力へ
-        return render_template ('kagoin.html',date=date,storeNo=storeNo,kigyo=kigyo,store=store,post=post)
-    
-##料金算出入力
+        #return render_template ('kagoin.html',date=date,storeNo=storeNo,kigyo=kigyo,store=store,post=post)
+        return render_template ('kintai.html', post=post)
+ 
+##料金算出入力  未実装
 @app.route("/<date>/<storeNo>/<kigyo>/<store>/chargein",methods=['GET','POST'])
 @login_required
 def chargein(date,storeNo,kigyo,store):
@@ -150,7 +166,7 @@ def chargein(date,storeNo,kigyo,store):
     
     return render_template('kagoin.html',date=date,storeNo=storeNo,kigyo=kigyo,store=store)
 
-##カゴ入力
+##カゴ入力　未実装
 @app.route("/<id>/kagoin",methods=['GET','POST'])
 @login_required
 def kagoin(id):
@@ -429,9 +445,9 @@ def kintaireturn(id):
         return render_template('kintai.html',id=id,post=post)
 
 #勤怠確認  →CSVファイル出力
-@app.route("/<id>/kintaimain", methods=['POST','GET'])
+@app.route("/<id>/<storeNo>/kintaimain", methods=['POST','GET'])
 #@login_required
-def kintaimain(id):
+def kintaimain(id,storeNo):
     conn = sqlite3.connect(DATABASE)
     if request.method == 'POST':
         db = get_db()
@@ -444,7 +460,10 @@ def kintaimain(id):
         ftp.connect('s322.xrea.com', port=21, timeout=60)
         msg = ftp.login('stappajis', 'SVSwuX6l7tBm') 
 
-        with open('sample.csv', 'w', newline='', encoding="utf-8") as f:
+        now = datetime.datetime.now()
+        filename = storeNo+'_' + now.strftime('%Y%m%d') + '.csv'
+        with open(filename, 'w', newline='', encoding="utf-8") as f:
+        #with open('sample.csv', 'w', newline='', encoding="utf-8") as f:
             #'//landisk01/広場/StKintaiApp_Fold/sample.csv'  テスト広場
             #./static/data/sample.csv テストローカルフォルダ
 
@@ -453,13 +472,15 @@ def kintaimain(id):
             writer.writerow(store_list)
             writer.writerows(kintai_list)
 
-        with open('sample.csv', "rb") as f:
-            ftp.storlines('STOR /sample.csv', f)
+        #with open('sample.csv', "rb") as f:
+            #ftp.storlines('STOR /sample.csv', f)
+        with open( filename, "rb") as f:
+            ftp.storlines('STOR /'+ filename, f)
         
-        return render_template('upload.html')
+        return render_template('upload.html',storeNo=storeNo)
           
 #カメラ起動  
-@app.route('/upload', methods=['GET', 'POST'])
+@app.route("/upload", methods=['GET', 'POST'])
 def upload():
     # URLでhttp://127.0.0.1:5000/uploadを指定したときはGETリクエストとなるのでこちらを使用する
     if request.method == 'GET':
@@ -478,9 +499,13 @@ def upload():
          else:
             file.save(os.path.join('', file.filename)) 
             fp = open(file.filename, "rb")  #アップロードするファイル名
-            ftp.storbinary("STOR /test.jpg",fp) #ホスト側のディレクトリ　
+            now = datetime.datetime.now()
+            filerename = '_'  + now.strftime('%Y%m%d') + '.jpeg'
+            ftp.storbinary('STOR /'+filerename,fp) #ホスト側のディレクトリ　
+            #ftp.storbinary("STOR /test.jpg",fp) #ホスト側のディレクトリ　
             #file.save(os.path.join('//landisk01/広場/StKintaiApp_Fold', file.filename))  #テストで広場に保存
-            return redirect(url_for('uploaded_file', filename=file.filename))
+            #return redirect(url_for('uploaded_file', filerename=file.filename))
+            return redirect(url_for('uploaded_file', filename=filerename))
              
     
     return render_template ('upload.html')

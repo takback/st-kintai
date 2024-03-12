@@ -36,7 +36,7 @@
 <p></p>
 <button onclick="location.href='/logout'">ログアウト </button>
 <p></p>
-    <form action="/{{id}}/{{post.date}}/kintai" method="POST" >
+<form action="/{{post.id}}/{{post.date}}/kintai" method="POST" >
         <table width="700" border="2">
             <tr>
                 <th>ID</th>
@@ -46,7 +46,7 @@
                 <th>店舗名</th>
             </tr>
              <tr>
-                <td>{{id}}</td>
+                <td>{{post.id}}</td>
                 <td>{{post.date}}</td>
                 <td>{{post.storeNo}}</td>
                 <td>{{post.kigyo}}</td>
